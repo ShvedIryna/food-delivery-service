@@ -7,7 +7,8 @@ from sqlalchemy.orm import Session
 
 from app.core.security import hash_password
 from app.core.timeutil import utcnow
-from app.models import Dish, Restaurant, Review, User
+from app.domain.loyalty import LoyaltyCardFactory
+from app.models import Dish, Order, OrderItem, Restaurant, Review, User
 
 RESTAURANTS = [
     {
@@ -122,6 +123,15 @@ REVIEW_TEXTS = {
     3: ["Нормально, але очікувала більшого.", "Смачно, проте холодне."],
 }
 
+CLIENT_POINTS = [
+    (49.8510, 24.0220, "вул. Під Голоском, 7"),
+    (49.8300, 24.0450, "вул. Стрийська, 45"),
+    (49.8420, 24.0510, "вул. Личаківська, 60"),
+    (49.8250, 24.0180, "вул. Наукова, 12"),
+    (49.8480, 24.0050, "вул. Городоцька, 120"),
+]
+
+
 def seed(db: Session) -> None:
     rng = random.Random(8)
     users = []
@@ -145,6 +155,31 @@ def seed(db: Session) -> None:
 
     clients = [u for u in users if u.role == "CLIENT"]
     now = utcnow()
+    for i in range(45):
+        user = clients[i % len(clients)]
+        r = rng.choice(restaurants)
+        lat, lng, addr = rng.choice(CLIENT_POINTS)
+        created = now - timedelta(days=rng.randint(1, 30), hours=rng.randint(0, 12), minutes=rng.randint(0, 59))
+        items = rng.sample(r.dishes, k=min(len(r.dishes), rng.randint(1, 3)))
+        order_items = [OrderItem(dish_id=d.id, dish_name=d.name, unit_price=d.price, quantity=rng.randint(1, 2)) for d in items]
+        subtotal = sum((it.unit_price * it.quantity for it in order_items), Decimal("0"))
+        delivery_type = rng.choice(["STANDARD", "STANDARD", "EXPRESS", "PICKUP"])
+        fee = Decimal("0") if delivery_type == "PICKUP" or user.card_type == "PREMIUM" else (
+            Decimal("99") if delivery_type == "EXPRESS" else (Decimal("0") if subtotal >= 500 else Decimal("49")))
+        status = "CANCELLED" if i % 11 == 5 else "DELIVERED"
+        total = subtotal + fee
+        bonus = LoyaltyCardFactory.create(user.card_type).calculate_bonus(total) if status == "DELIVERED" else 0
+        payment = rng.choice(["CARD", "CASH"])
+        db.add(Order(
+            user_id=user.id, restaurant_id=r.id, status=status, delivery_type=delivery_type,
+            payment_method=payment, payment_status="PAID" if status == "DELIVERED" or payment == "CARD" else "PENDING",
+            address=None if delivery_type == "PICKUP" else addr,
+            lat=None if delivery_type == "PICKUP" else lat, lng=None if delivery_type == "PICKUP" else lng,
+            subtotal=subtotal, delivery_fee=fee, discount=Decimal("0"), total=total, bonus_earned=bonus,
+            estimated_minutes=r.delivery_time_min, created_at=created, status_changed_at=created + timedelta(minutes=40),
+            items=order_items,
+        ))
+
     for r in restaurants:
         reviewers = rng.sample(clients, k=rng.randint(2, len(clients)))
         for u in reviewers:

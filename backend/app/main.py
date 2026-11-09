@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app import models  # noqa: F401 — реєструє таблиці в Base.metadata
-from app.api import routes_auth, routes_catalog
+from app.api import routes_auth, routes_catalog, routes_orders, routes_profile
 from app.core.config import get_settings
 from app.db.session import Base, SessionLocal, engine, wait_for_db
 from app.seed import seed_if_empty
@@ -37,7 +37,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-for module in (routes_auth, routes_catalog):
+for module in (routes_auth, routes_catalog, routes_orders, routes_profile):
     app.include_router(module.router)
 
 
