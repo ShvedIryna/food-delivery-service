@@ -1,0 +1,218 @@
+:root {
+  --orange: #ea580c;
+  --orange-dark: #c2410c;
+  --orange-soft: #fff7ed;
+  --green: #16a34a;
+  --red: #dc2626;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --radius: 14px;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.45;
+}
+a { color: var(--orange-dark); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 1.7rem; margin: 18px 0 14px; }
+h2 { font-size: 1.3rem; margin: 10px 0; }
+h3 { font-size: 1.08rem; margin: 0 0 12px; }
+hr { border: none; border-top: 1px solid var(--border); margin: 10px 0; }
+input, select, textarea {
+  font: inherit; padding: 8px 10px; border: 1px solid var(--border); border-radius: 9px; background: #fff; width: 100%;
+}
+input:focus, select:focus, textarea:focus { outline: 2px solid #fdba74; border-color: var(--orange); }
+textarea { resize: vertical; margin: 8px 0; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 18px; }
+main { min-height: calc(100vh - 130px); padding-bottom: 30px; }
+.footer { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 18px; border-top: 1px solid var(--border); }
+
+/* Шапка */
+.header { background: #fff; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; }
+.header-inner { display: flex; align-items: center; gap: 20px; height: 62px; }
+.logo { font-weight: 800; font-size: 1.25rem; color: var(--orange); white-space: nowrap; }
+.logo:hover { text-decoration: none; }
+.nav { display: flex; gap: 6px; flex: 1; }
+.nav a { padding: 7px 12px; border-radius: 9px; color: var(--text); }
+.nav a.active, .nav a:hover { background: var(--orange-soft); color: var(--orange-dark); text-decoration: none; }
+.header-actions { display: flex; align-items: center; gap: 8px; }
+.cart-link, .user-chip { padding: 7px 12px; border-radius: 9px; color: var(--text); white-space: nowrap; }
+.cart-link:hover, .user-chip:hover { background: var(--orange-soft); text-decoration: none; }
+.badge { background: var(--orange); color: #fff; border-radius: 999px; padding: 1px 7px; font-size: 0.75rem; margin-left: 3px; }
+.bonus-chip { background: #dcfce7; color: #166534; border-radius: 999px; padding: 1px 8px; font-size: 0.75rem; margin-left: 6px; }
+
+/* Кнопки */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid transparent;
+  padding: 8px 14px; border-radius: 9px; font: inherit; cursor: pointer; background: #fff; color: var(--text); white-space: nowrap; }
+.btn:hover { text-decoration: none; }
+.btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.btn-primary { background: var(--orange); color: #fff; }
+.btn-primary:hover:not(:disabled) { background: var(--orange-dark); }
+.btn-ghost { border-color: var(--border); }
+.btn-ghost:hover { background: #f3f4f6; }
+.btn-danger { background: #fee2e2; color: var(--red); }
+.btn-danger:hover { background: #fecaca; }
+.btn-block { width: 100%; margin-top: 10px; }
+.fav-btn { background: none; border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; font: inherit; font-size: 0.78rem; cursor: pointer; color: var(--muted); white-space: nowrap; }
+.fav-btn.active { border-color: var(--orange); color: var(--orange-dark); background: var(--orange-soft); }
+.premium-chip { background: #fef3c7; color: #92400e; border-radius: 999px; padding: 1px 8px; font-size: 0.75rem; margin-left: 6px; }
+.small { font-size: 0.86rem; }
+.btn.small { padding: 5px 9px; }
+.muted { color: var(--muted); }
+.text-green { color: var(--green); }
+
+/* Картки та сітки */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; margin-bottom: 16px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+.grid-small { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); }
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.row-between { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.grow { flex: 1; min-width: 0; }
+.stack > * { margin-top: 8px; }
+.layout-2 { display: grid; grid-template-columns: 1fr 360px; gap: 20px; align-items: start; }
+.layout-2.even { grid-template-columns: 1fr 1fr; }
+.sticky { position: sticky; top: 80px; }
+.alert { padding: 10px 12px; border-radius: 9px; margin: 10px 0; }
+.alert-error { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+
+.hero { background: linear-gradient(120deg, #fb923c, #ea580c); color: #fff; border-radius: var(--radius); padding: 30px; margin: 20px 0; }
+.hero h1 { margin: 0 0 6px; font-size: 1.9rem; }
+.hero p { margin: 0; opacity: 0.95; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.filters input { flex: 2; min-width: 200px; }
+.filters select { flex: 1; min-width: 150px; width: auto; }
+.checkbox { display: flex; align-items: center; gap: 6px; white-space: nowrap; cursor: pointer; }
+.checkbox input { width: auto; }
+
+.restaurant-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+.restaurant-cover { height: 120px; background: linear-gradient(135deg, #ffedd5, #fed7aa); display: flex; align-items: center; justify-content: center; }
+.restaurant-initials { font-size: 2.6rem; font-weight: 800; color: var(--orange-dark); letter-spacing: 2px; }
+.card-body { padding: 14px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.card-title { font-weight: 700; font-size: 1.05rem; color: var(--text); }
+.description { margin: 4px 0; color: #4b5563; flex: 1; }
+.stars { color: #d1d5db; letter-spacing: 1px; }
+.star.on { color: #f59e0b; }
+.stars-input .star { cursor: pointer; font-size: 1.6rem; }
+
+/* Сторінка закладу */
+.restaurant-header { display: flex; gap: 20px; align-items: center; margin-top: 20px; }
+.restaurant-header h1 { margin: 0 0 4px; }
+.restaurant-header p { margin: 0 0 8px; }
+.restaurant-header-initials { font-size: 2.4rem; font-weight: 800; color: var(--orange-dark); background: var(--orange-soft); border-radius: var(--radius); width: 110px; height: 110px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.meta { display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.9rem; color: #4b5563; }
+.inline-filters { display: flex; gap: 8px; }
+.inline-filters select { width: auto; }
+.dish-list { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+.dish { display: flex; gap: 14px; align-items: center; margin: 0; }
+.dish-buy { text-align: right; display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+.price { font-weight: 700; font-size: 1.1rem; }
+.review { border-top: 1px solid var(--border); padding: 8px 0; }
+.review:first-of-type { border-top: none; }
+.total-row { font-size: 1.1rem; border-top: 1px solid var(--border); margin-top: 8px; padding-top: 8px; }
+
+/* Кошик */
+.cart-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.qty { display: flex; align-items: center; gap: 8px; }
+.qty button { width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--border); background: #fff; cursor: pointer; font-size: 1rem; }
+.cart-sum { width: 90px; text-align: right; font-weight: 600; }
+.options { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 12px; }
+.option { border: 1px solid var(--border); border-radius: 10px; padding: 10px; display: flex; flex-direction: column; gap: 2px; cursor: pointer; }
+.option input { display: none; }
+.option.selected { border-color: var(--orange); background: var(--orange-soft); }
+.field { display: flex; flex-direction: column; gap: 4px; font-size: 0.88rem; color: #374151; margin-bottom: 10px; }
+.form { display: flex; flex-direction: column; }
+.card-form { background: #f9fafb; border-radius: 10px; padding: 12px; margin-bottom: 10px; }
+.card-form .row .field { flex: 1; }
+.empty { text-align: center; padding: 40px; margin-top: 30px; }
+
+/* Карта */
+.map { height: 380px; width: 100%; border-radius: 12px; z-index: 0; }
+.map-small { height: 280px; margin-bottom: 10px; }
+.map-placeholder { display: flex; align-items: center; justify-content: center; background: #f3f4f6; color: var(--muted); }
+.tracking-info { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 10px; font-size: 0.92rem; align-items: center; }
+.progress { flex-basis: 100%; height: 8px; background: #f3f4f6; border-radius: 999px; overflow: hidden; }
+.progress div { height: 100%; background: var(--orange); transition: width 1s linear; }
+
+/* Замовлення */
+.order-list { display: flex; flex-direction: column; gap: 12px; }
+.order-card { display: flex; gap: 14px; margin: 0; }
+.avatar { width: 52px; height: 52px; border-radius: 12px; background: var(--orange-soft); color: var(--orange-dark); font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.status { padding: 3px 10px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; white-space: nowrap; }
+.status-NEW { background: #e0f2fe; color: #075985; }
+.status-PREPARING { background: #fef3c7; color: #92400e; }
+.status-DELIVERING, .status-READY_FOR_PICKUP { background: #ede9fe; color: #5b21b6; }
+.status-DELIVERED { background: #dcfce7; color: #166534; }
+.status-CANCELLED { background: #fee2e2; color: #991b1b; }
+.timeline { display: flex; list-style: none; padding: 0; margin: 10px 0 20px; gap: 0; }
+.timeline li { flex: 1; text-align: center; position: relative; color: var(--muted); font-size: 0.9rem; padding-top: 4px; }
+.timeline li::before { content: ''; position: absolute; top: 22px; left: -50%; width: 100%; height: 3px; background: var(--border); z-index: -1; }
+.timeline li:first-child::before { display: none; }
+.timeline li.done::before, .timeline li.current::before { background: var(--orange); }
+.timeline-icon { display: block; width: 40px; height: 40px; margin: 0 auto 4px; border-radius: 50%; background: #fff; border: 2px solid var(--border); line-height: 36px; font-weight: 700; }
+.timeline li.done .timeline-icon { border-color: var(--orange); background: var(--orange-soft); }
+.timeline li.current { color: var(--text); font-weight: 700; }
+.timeline li.current .timeline-icon { border-color: var(--orange); background: var(--orange); color: #fff; box-shadow: 0 0 0 5px #fed7aa; }
+.kv { display: flex; justify-content: space-between; gap: 10px; padding: 3px 0; font-size: 0.92rem; }
+.kv span:first-child { color: var(--muted); }
+
+/* Сповіщення */
+.bell { position: relative; }
+.bell-dropdown { position: absolute; right: 0; top: 44px; width: 340px; max-height: 440px; overflow-y: auto; background: #fff;
+  border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12); padding: 10px; }
+.bell-title { font-weight: 700; margin-bottom: 6px; }
+.bell-item { padding: 8px; border-radius: 8px; }
+.bell-item.unread { background: var(--orange-soft); }
+.bell-item-title { font-weight: 600; font-size: 0.92rem; }
+
+/* Кабінет */
+.loyalty-card { background: linear-gradient(135deg, #334155, #1e293b); color: #fff; }
+.loyalty-card.premium { background: linear-gradient(135deg, #f59e0b, #b45309); }
+.loyalty-title { font-weight: 700; font-size: 1.1rem; }
+.loyalty-points { font-size: 2.3rem; font-weight: 800; margin: 8px 0; }
+.loyalty-points span { font-size: 1rem; font-weight: 400; }
+.auth { max-width: 440px; margin-top: 30px; }
+.demo { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; border-top: 1px solid var(--border); padding-top: 10px; }
+
+/* Адмінка */
+.admin { display: grid; grid-template-columns: 220px 1fr; gap: 20px; align-items: start; margin-top: 20px; }
+.admin-nav { display: flex; flex-direction: column; gap: 4px; position: sticky; top: 80px; }
+.admin-nav-title { font-weight: 800; margin-bottom: 8px; }
+.admin-nav a { padding: 8px 10px; border-radius: 9px; color: var(--text); }
+.admin-nav a.active, .admin-nav a:hover { background: var(--orange-soft); color: var(--orange-dark); text-decoration: none; }
+.admin-content h1 { margin-top: 0; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; }
+.tile-value { font-size: 1.6rem; font-weight: 800; color: var(--orange-dark); }
+.table-wrap { overflow-x: auto; padding: 0; }
+.table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.table th, .table td { padding: 9px 10px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: middle; }
+.table th { background: #f9fafb; font-weight: 600; color: #4b5563; }
+.table select { width: auto; padding: 4px 6px; }
+.actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.row-disabled { opacity: 0.55; }
+.input-small { width: 90px; padding: 4px 6px; }
+.grid-form { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+.span-2 { grid-column: span 2; }
+.sub-form { background: #f9fafb; border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+.bars { display: flex; flex-direction: column; gap: 8px; }
+.bar-row { display: grid; grid-template-columns: 150px 1fr 90px; gap: 8px; align-items: center; font-size: 0.86rem; }
+.bar-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bar-track { background: #f3f4f6; border-radius: 6px; height: 14px; overflow: hidden; }
+.bar { background: var(--orange); height: 100%; border-radius: 6px; }
+.bar-value { text-align: right; font-weight: 600; }
+
+@media (max-width: 900px) {
+  .layout-2, .layout-2.even, .admin { grid-template-columns: 1fr; }
+  .nav { display: none; }
+  .header-inner { gap: 10px; }
+}
