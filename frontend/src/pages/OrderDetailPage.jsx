@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '../api.js';
 import StarRating from '../components/StarRating.jsx';
 import StatusTimeline from '../components/StatusTimeline.jsx';
+import TrackingMap from '../components/TrackingMap.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 import { DELIVERY_TITLES, PAYMENT_STATUS_TITLES, PAYMENT_TITLES, dateTime, money } from '../utils/format.js';
 
@@ -28,6 +29,8 @@ export default function OrderDetailPage() {
     const t = setInterval(load, 5000);
     return () => clearInterval(t);
   }, [order, load]);
+
+  const onStatusChange = useCallback(() => { load(); refresh(); }, [load, refresh]);
 
   const cancel = async () => {
     if (!window.confirm('Скасувати замовлення?')) return;
@@ -69,6 +72,12 @@ export default function OrderDetailPage() {
 
       <div className="layout-2">
         <section>
+          {!pickup && order.status !== 'CANCELLED' && (
+            <div className="card">
+              <h3>Відстеження доставки</h3>
+              <TrackingMap orderId={order.id} active={ACTIVE.includes(order.status)} onStatusChange={onStatusChange} />
+            </div>
+          )}
           <div className="card">
             <h3>{order.restaurant_name}</h3>
             {order.items.map((i) => (

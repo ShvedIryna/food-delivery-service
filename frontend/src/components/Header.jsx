@@ -15,6 +15,7 @@ export default function Header() {
         <nav className="nav">
           <NavLink to="/" end>Заклади</NavLink>
           {user && <NavLink to="/orders">Мої замовлення</NavLink>}
+          {user?.role === 'ADMIN' && <NavLink to="/admin">Адмін-панель</NavLink>}
         </nav>
         <div className="header-actions">
           <Link to="/cart" className="cart-link">
