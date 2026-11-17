@@ -9,11 +9,13 @@ import OrderDetailPage from './pages/OrderDetailPage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
+import AdminPage from './pages/admin/AdminPage.jsx';
 
-function Protected({ children }) {
+function Protected({ children, admin = false }) {
   const { user, loading } = useAuth();
   if (loading) return <div className="container"><p className="muted">Завантаження…</p></div>;
   if (!user) return <Navigate to="/login" replace />;
+  if (admin && user.role !== 'ADMIN') return <Navigate to="/" replace />;
   return children;
 }
 
@@ -31,6 +33,7 @@ export default function App() {
           <Route path="/orders" element={<Protected><OrdersPage /></Protected>} />
           <Route path="/orders/:id" element={<Protected><OrderDetailPage /></Protected>} />
           <Route path="/profile" element={<Protected><ProfilePage /></Protected>} />
+          <Route path="/admin/*" element={<Protected admin><AdminPage /></Protected>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

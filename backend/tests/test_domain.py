@@ -9,6 +9,7 @@ from app.domain.order_builder import OrderBuilder, OrderValidationError
 from app.domain.order_state import InvalidTransition, OrderContext
 from app.domain.payment import CashPayment, OnlineCardPayment, luhn_valid
 from app.domain.pricing import PricingContext, build_price_calculator
+from app.domain.tracking import build_route, position_on_route
 
 
 def test_standard_delivery_free_from_500():
@@ -129,3 +130,10 @@ def test_builder_min_order_and_pickup():
         b.build()
     b.add_item(2, "Рол", Decimal("250"))
     assert b.build().address is None
+
+
+def test_route_positions():
+    route = build_route((49.84, 24.03), (49.85, 24.05))
+    assert position_on_route(route, 0) == route[0]
+    end = position_on_route(route, 1)
+    assert abs(end[0] - 49.85) < 1e-9 and abs(end[1] - 24.05) < 1e-9
