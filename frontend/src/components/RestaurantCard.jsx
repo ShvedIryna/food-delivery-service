@@ -7,7 +7,9 @@ export default function RestaurantCard({ restaurant, onToggleFavorite }) {
   return (
     <div className="card restaurant-card">
       <Link to={`/restaurants/${r.id}`} className="restaurant-cover">
-        <span className="restaurant-initials">{initials(r.name)}</span>
+        {r.image_url
+          ? <img src={r.image_url} alt={r.name} loading="lazy" />
+          : <span className="restaurant-initials">{initials(r.name)}</span>}
       </Link>
       <div className="card-body">
         <div className="row-between">

@@ -10,6 +10,7 @@ export default function RestaurantPage() {
   const { id } = useParams();
   const { user } = useAuth();
   const cart = useCart();
+  const isAdmin = user?.role === 'ADMIN';
   const [restaurant, setRestaurant] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [category, setCategory] = useState('');
@@ -48,7 +49,9 @@ export default function RestaurantPage() {
   return (
     <div className="container">
       <div className="restaurant-header card">
-        <div className="restaurant-header-initials">{initials(restaurant.name)}</div>
+        {restaurant.image_url
+          ? <img className="restaurant-header-photo" src={restaurant.image_url} alt={restaurant.name} />
+          : <div className="restaurant-header-initials">{initials(restaurant.name)}</div>}
         <div className="grow">
           <h1>{restaurant.name}</h1>
           <p>{restaurant.description}</p>
@@ -61,7 +64,7 @@ export default function RestaurantPage() {
             {restaurant.min_order > 0 && <span>Мін. замовлення {money(restaurant.min_order)}</span>}
           </div>
         </div>
-        {user && (
+        {user && !isAdmin && (
           <button className="btn btn-ghost" onClick={toggleFavorite}>
             {restaurant.is_favorite ? 'В улюблених' : 'Додати в улюблені'}
           </button>
@@ -95,9 +98,11 @@ export default function RestaurantPage() {
                 </div>
                 <div className="dish-buy">
                   <div className="price">{money(d.price)}</div>
-                  <button className="btn btn-primary" onClick={() => add(d)}>
-                    {added === d.id ? 'Додано' : '+ У кошик'}
-                  </button>
+                  {!isAdmin && (
+                    <button className="btn btn-primary" onClick={() => add(d)}>
+                      {added === d.id ? 'Додано' : '+ У кошик'}
+                    </button>
+                  )}
                 </div>
               </div>
             ))}

@@ -12,7 +12,7 @@ from app.models import Dish, Order, OrderItem, Restaurant, Review, User
 
 RESTAURANTS = [
     {
-        "name": "Бабусина кухня", "cuisine": "UKRAINIAN", "price_level": 1,
+        "name": "Бабусина кухня", "image_url": "https://images.unsplash.com/photo-1551638059-d1fb82606c4a?w=800&q=70&auto=format&fit=crop", "cuisine": "UKRAINIAN", "price_level": 1,
         "delivery_time_min": 35, "min_order": 150, "lat": 49.8419, "lng": 24.0315,
         "address": "вул. Руська, 12",
         "description": "Домашні вареники, борщ і деруни за бабусиними рецептами.",
@@ -26,7 +26,7 @@ RESTAURANTS = [
         ],
     },
     {
-        "name": "Mamma Mia", "cuisine": "ITALIAN", "price_level": 2,
+        "name": "Mamma Mia", "image_url": "https://images.unsplash.com/photo-1517685645259-c6caddb7165d?w=800&q=70&auto=format&fit=crop", "cuisine": "ITALIAN", "price_level": 2,
         "delivery_time_min": 40, "min_order": 200, "lat": 49.8383, "lng": 24.0232,
         "address": "пл. Ринок, 5",
         "description": "Неаполітанська піца з дров'яної печі та свіжа паста.",
@@ -40,7 +40,7 @@ RESTAURANTS = [
         ],
     },
     {
-        "name": "Сакура Суші", "cuisine": "JAPANESE", "price_level": 3,
+        "name": "Сакура Суші", "image_url": "https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?w=800&q=70&auto=format&fit=crop", "cuisine": "JAPANESE", "price_level": 3,
         "delivery_time_min": 50, "min_order": 300, "lat": 49.8352, "lng": 24.0141,
         "address": "просп. Свободи, 28",
         "description": "Роли, суші та рамен від шефа з Осаки.",
@@ -54,7 +54,7 @@ RESTAURANTS = [
         ],
     },
     {
-        "name": "Бургерна №1", "cuisine": "AMERICAN", "price_level": 2,
+        "name": "Бургерна №1", "image_url": "https://images.unsplash.com/photo-1561758033-d89a9ad46330?w=800&q=70&auto=format&fit=crop", "cuisine": "AMERICAN", "price_level": 2,
         "delivery_time_min": 30, "min_order": 0, "lat": 49.8445, "lng": 24.0378,
         "address": "вул. Шевченка, 3",
         "description": "Соковиті бургери з мармурової яловичини та картопля фрі.",
@@ -68,7 +68,7 @@ RESTAURANTS = [
         ],
     },
     {
-        "name": "Тбілісо", "cuisine": "GEORGIAN", "price_level": 2,
+        "name": "Тбілісо", "image_url": "https://images.unsplash.com/photo-1612950365425-dbf12ef9a1a8?w=800&q=70&auto=format&fit=crop", "cuisine": "GEORGIAN", "price_level": 2,
         "delivery_time_min": 45, "min_order": 250, "lat": 49.8325, "lng": 24.0359,
         "address": "вул. Городоцька, 40",
         "description": "Хачапурі, хінкалі та шашлик на вугіллі.",
@@ -81,7 +81,7 @@ RESTAURANTS = [
         ],
     },
     {
-        "name": "Вок & Ролл", "cuisine": "ASIAN", "price_level": 1,
+        "name": "Вок & Ролл", "image_url": "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=800&q=70&auto=format&fit=crop", "cuisine": "ASIAN", "price_level": 1,
         "delivery_time_min": 25, "min_order": 0, "lat": 49.8478, "lng": 24.0247,
         "address": "вул. Липинського, 9",
         "description": "Локшина вок, пад тай та азійські закуски.",
@@ -94,7 +94,7 @@ RESTAURANTS = [
         ],
     },
     {
-        "name": "Солодкий Львів", "cuisine": "DESSERTS", "price_level": 1,
+        "name": "Солодкий Львів", "image_url": "https://images.unsplash.com/photo-1650147880857-95b822f65ff9?w=800&q=70&auto=format&fit=crop", "cuisine": "DESSERTS", "price_level": 1,
         "delivery_time_min": 30, "min_order": 100, "lat": 49.8401, "lng": 24.0287,
         "address": "вул. Вірменська, 15",
         "description": "Львівський сирник, штрудлі та кава зі всього світу.",

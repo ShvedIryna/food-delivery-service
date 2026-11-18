@@ -4,7 +4,7 @@ import { CUISINE_TITLES, LVIV_CENTER, money, priceLevel } from '../../utils/form
 
 const EMPTY_RESTAURANT = {
   name: '', description: '', cuisine: 'UKRAINIAN', price_level: 2, delivery_time_min: 40, min_order: 0,
-  address: '', lat: LVIV_CENTER[0], lng: LVIV_CENTER[1], is_active: true,
+  address: '', lat: LVIV_CENTER[0], lng: LVIV_CENTER[1], image_url: '', is_active: true,
 };
 const EMPTY_DISH = { name: '', description: '', category: 'Основні страви', price: 100, weight_g: '', is_available: true };
 
@@ -32,6 +32,7 @@ function RestaurantForm({ initial, onSave, onCancel }) {
       <label className="field">Час доставки, хв<input type="number" value={form.delivery_time_min} onChange={set('delivery_time_min', true)} /></label>
       <label className="field">Мін. замовлення, ₴<input type="number" value={form.min_order} onChange={set('min_order', true)} /></label>
       <label className="field span-2">Адреса<input value={form.address} onChange={set('address')} /></label>
+      <label className="field span-2">Фото (посилання на зображення)<input value={form.image_url || ''} onChange={set('image_url')} placeholder="https://images.unsplash.com/..." /></label>
       <label className="field">Широта<input type="number" step="0.0001" value={form.lat} onChange={set('lat', true)} /></label>
       <label className="field">Довгота<input type="number" step="0.0001" value={form.lng} onChange={set('lng', true)} /></label>
       <label className="checkbox"><input type="checkbox" checked={form.is_active} onChange={set('is_active')} /> Активний</label>

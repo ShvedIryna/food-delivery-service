@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { api } from '../api.js';
 import { useAuth } from '../context/AuthContext.jsx';
 import { dateTime } from '../utils/format.js';
+import { BellIcon } from './Icons.jsx';
 
 export default function NotificationBell() {
   const { refresh } = useAuth();
@@ -44,8 +45,9 @@ export default function NotificationBell() {
 
   return (
     <div className="bell">
-      <button className="btn btn-ghost" onClick={toggle} title="Сповіщення">
-        Сповіщення {unread > 0 && <span className="badge">{unread}</span>}
+      <button className="icon-link" onClick={toggle} title="Сповіщення" aria-label="Сповіщення">
+        <BellIcon />
+        {unread > 0 && <span className="badge badge-dot">{unread}</span>}
       </button>
       {open && (
         <div className="bell-dropdown" onMouseLeave={() => setOpen(false)}>

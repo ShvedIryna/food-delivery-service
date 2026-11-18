@@ -123,7 +123,9 @@ export default function CartPage() {
                 <span className="cart-sum">{money(i.price * i.quantity)}</span>
               </div>
             ))}
-            <button className="btn btn-ghost small" onClick={cart.clear}>Очистити кошик</button>
+            <div className="cart-actions">
+              <button className="btn btn-ghost small" onClick={cart.clear}>Очистити кошик</button>
+            </div>
           </div>
 
           {!user ? (

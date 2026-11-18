@@ -5,7 +5,10 @@ from sqlalchemy.orm import Session
 from app.domain.events import OrderEvent, OrderEventType, OrderObserver
 from app.domain.loyalty import LoyaltyCardFactory
 from app.domain.order_state import STATUS_TITLES, OrderStatus
-from app.models import Notification, Order
+from sqlalchemy import select
+
+from app.domain.delivery import DELIVERY_STRATEGIES
+from app.models import Notification, Order, User
 
 STATUS_MESSAGES = {
     OrderStatus.PREPARING.value: ("Замовлення готується", "Заклад «{r}» почав готувати ваше замовлення №{id}."),
@@ -34,6 +37,18 @@ class NotificationObserver(OrderObserver):
             )
             message = template.format(id=order.id, r=r_name)
         self.db.add(Notification(user_id=order.user_id, order_id=order.id, kind="ORDER_STATUS", title=title, message=message))
+        if event.type == OrderEventType.CREATED:
+            self._notify_admins(order, r_name)
+
+    def _notify_admins(self, order: Order, r_name: str) -> None:
+        # адміністратори бачать лише службові сповіщення про нові замовлення
+        delivery = DELIVERY_STRATEGIES.get(order.delivery_type)
+        for admin_id in self.db.scalars(select(User.id).where(User.role == "ADMIN")):
+            self.db.add(Notification(
+                user_id=admin_id, order_id=order.id, kind="ADMIN",
+                title=f"Нове замовлення №{order.id}",
+                message=f"{r_name}: {order.total} ₴, {delivery.title if delivery else order.delivery_type}.",
+            ))
 
 
 class LoyaltyObserver(OrderObserver):

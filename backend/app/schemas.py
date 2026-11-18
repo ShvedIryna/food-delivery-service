@@ -69,6 +69,7 @@ class RestaurantOut(ORM):
     address: str
     lat: float
     lng: float
+    image_url: str = ""
     is_active: bool
     rating: float
     reviews_count: int
@@ -177,6 +178,7 @@ class RestaurantIn(BaseModel):
     address: str = ""
     lat: float
     lng: float
+    image_url: str = Field(default="", max_length=500)
     is_active: bool = True
 
 

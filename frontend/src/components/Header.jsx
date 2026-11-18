@@ -1,12 +1,14 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useCart } from '../context/CartContext.jsx';
+import { CartIcon } from './Icons.jsx';
 import NotificationBell from './NotificationBell.jsx';
 
 export default function Header() {
   const { user, logout } = useAuth();
   const { count } = useCart();
   const navigate = useNavigate();
+  const isAdmin = user?.role === 'ADMIN';
 
   return (
     <header className="header">
@@ -14,13 +16,16 @@ export default function Header() {
         <Link to="/" className="logo">Смак Експрес</Link>
         <nav className="nav">
           <NavLink to="/" end>Заклади</NavLink>
-          {user && <NavLink to="/orders">Мої замовлення</NavLink>}
-          {user?.role === 'ADMIN' && <NavLink to="/admin">Адмін-панель</NavLink>}
+          {user && !isAdmin && <NavLink to="/orders">Мої замовлення</NavLink>}
+          {isAdmin && <NavLink to="/admin">Адмін-панель</NavLink>}
         </nav>
         <div className="header-actions">
-          <Link to="/cart" className="cart-link">
-            Кошик {count > 0 && <span className="badge">{count}</span>}
-          </Link>
+          {!isAdmin && (
+            <Link to="/cart" className="icon-link" title="Кошик" aria-label="Кошик">
+              <CartIcon />
+              {count > 0 && <span className="badge badge-dot">{count}</span>}
+            </Link>
+          )}
           {user ? (
             <>
               <NotificationBell />

@@ -74,10 +74,14 @@ export default function CatalogPage() {
           <option value="price">За ціною</option>
           <option value="name">За назвою</option>
         </select>
-        {user && (
-          <label className="checkbox">
-            <input type="checkbox" checked={filters.favorites_only} onChange={set('favorites_only')} /> Лише улюблені
-          </label>
+        {user && user.role !== 'ADMIN' && (
+          <button
+            type="button"
+            className={`toggle ${filters.favorites_only ? 'active' : ''}`}
+            onClick={() => setFilters((f) => ({ ...f, favorites_only: !f.favorites_only }))}
+          >
+            Лише улюблені
+          </button>
         )}
         <button className="btn btn-ghost" onClick={() => setFilters(INITIAL)}>Скинути</button>
       </div>

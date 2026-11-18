@@ -95,6 +95,8 @@ class OrderService:
         }
 
     def place_order(self, user: User, data: OrderCreate) -> Order:
+        if user.role == "ADMIN":
+            raise OrderError("Адміністратор не оформлює замовлення. Увійдіть як клієнт.")
         restaurant, draft = self._build_draft(user, data)
         price = self._price(user, draft)
 

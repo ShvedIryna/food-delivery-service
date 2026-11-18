@@ -61,6 +61,7 @@ class Restaurant(Base):
     address: Mapped[str] = mapped_column(String(255), default="")
     lat: Mapped[float] = mapped_column(Float)
     lng: Mapped[float] = mapped_column(Float)
+    image_url: Mapped[str] = mapped_column(String(500), default="")
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     rating: Mapped[float] = mapped_column(Float, default=0.0)
     reviews_count: Mapped[int] = mapped_column(Integer, default=0)
